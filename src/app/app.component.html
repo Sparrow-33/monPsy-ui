@@ -1,483 +1,1059 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .spacer {
-    flex: 1;
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-  }
-
-  .toolbar img {
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo {
-    height: 40px;
-    margin: 0 8px;
-  }
-
-  .toolbar #youtube-logo {
-    height: 40px;
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo:hover,
-  .toolbar #youtube-logo:hover {
-    opacity: 0.8;
-  }
-
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  svg.material-icons {
-    height: 24px;
-    width: auto;
-  }
-
-  svg.material-icons:not(:last-child) {
-    margin-right: 8px;
-  }
-
-  .card svg.material-icons path {
-    fill: #888;
-  }
-
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
-  }
-
-  .card {
-    all: unset;
-    border-radius: 4px;
-    border: 1px solid #eee;
-    background-color: #fafafa;
-    height: 40px;
-    width: 200px;
-    margin: 0 8px 16px;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    line-height: 24px;
-  }
-
-  .card-container .card:not(:last-child) {
-    margin-right: 0;
-  }
-
-  .card.card-small {
-    height: 16px;
-    width: 168px;
-  }
-
-  .card-container .card:not(.highlight-card) {
-    cursor: pointer;
-  }
-
-  .card-container .card:not(.highlight-card):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-  }
-
-  .card-container .card:not(.highlight-card):hover .material-icons path {
-    fill: rgb(105, 103, 103);
-  }
-
-  .card.highlight-card {
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-    border: none;
-    width: auto;
-    min-width: 30%;
-    position: relative;
-  }
-
-  .card.card.highlight-card span {
-    margin-left: 60px;
-  }
-
-  svg#rocket {
-    width: 80px;
-    position: absolute;
-    left: -10px;
-    top: -24px;
-  }
-
-  svg#rocket-smoke {
-    height: calc(100vh - 95px);
-    position: absolute;
-    top: 10px;
-    right: 180px;
-    z-index: -10;
-  }
-
-  a,
-  a:visited,
-  a:hover {
-    color: #1976d2;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #125699;
-  }
-
-  .terminal {
-    position: relative;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 6px;
-    padding-top: 45px;
-    margin-top: 8px;
-    overflow: hidden;
-    background-color: rgb(15, 15, 16);
-  }
-
-  .terminal::before {
-    content: "\2022 \2022 \2022";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: rgb(58, 58, 58);
-    color: #c2c3c4;
-    width: 100%;
-    font-size: 2rem;
-    line-height: 0;
-    padding: 14px 0;
-    text-indent: 4px;
-  }
-
-  .terminal pre {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-    color: white;
-    padding: 0 1rem 1rem;
-    margin: 0;
-  }
-
-  .circle-link {
-    height: 40px;
-    width: 40px;
-    border-radius: 40px;
-    margin: 8px;
-    background-color: white;
-    border: 1px solid #eeeeee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: 1s ease-out;
-  }
-
-  .circle-link:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  footer {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    line-height: 20px;
-  }
-
-  footer a {
-    display: flex;
-    align-items: center;
-  }
-
-  .github-star-badge {
-    color: #24292e;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    padding: 3px 10px;
-    border: 1px solid rgba(27,31,35,.2);
-    border-radius: 3px;
-    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-    margin-left: 4px;
-    font-weight: 600;
-  }
-
-  .github-star-badge:hover {
-    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
-    border-color: rgba(27,31,35,.35);
-    background-position: -.5em;
-  }
-
-  .github-star-badge .material-icons {
-    height: 16px;
-    width: 16px;
-    margin-right: 4px;
-  }
-
-  svg#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-  }
-
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
-    .card-container > *:not(.circle-link) ,
-    .terminal {
-      width: 100%;
-    }
-
-    .card:not(.highlight-card) {
-      height: 16px;
-      margin: 8px 0;
-    }
-
-    .card.highlight-card span {
-      margin-left: 72px;
-    }
-
-    svg#rocket-smoke {
-      right: 120px;
-      transform: rotate(-5deg);
-    }
-  }
-
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
-  }
-</style>
-
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <img
-    width="40"
-    alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-  />
-  <span>Welcome</span>
-    <div class="spacer"></div>
-    <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular" title="Twitter">
-      <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <rect width="400" height="400" fill="none"/>
-        <path d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23" fill="#fff"/>
-      </svg>
-    </a>
-    <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular" title="YouTube">
-      <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
-        <path d="M0 0h24v24H0V0z" fill="none"/>
-        <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
-      </svg>
-    </a>
-</div>
-
-<div class="content" role="main">
-
-  <!-- Highlight Card -->
-  <div class="card highlight-card card-small">
-
-    <svg id="rocket" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
-      <title>Rocket Ship</title>
-      <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
-        <circle id="Ellipse_8" data-name="Ellipse 8" cx="50.839" cy="50.839" r="50.839" transform="translate(141 696)" fill="#dd0031"/>
-        <g id="Group_47" data-name="Group 47" transform="translate(165.185 720.185)">
-          <path id="Path_33" data-name="Path 33" d="M3.4,42.615a3.084,3.084,0,0,0,3.553,3.553,21.419,21.419,0,0,0,12.215-6.107L9.511,30.4A21.419,21.419,0,0,0,3.4,42.615Z" transform="translate(0.371 3.363)" fill="#fff"/>
-          <path id="Path_34" data-name="Path 34" d="M53.3,3.221A3.09,3.09,0,0,0,50.081,0,48.227,48.227,0,0,0,18.322,13.437c-6-1.666-14.991-1.221-18.322,7.218A33.892,33.892,0,0,1,9.439,25.1l-.333.666a3.013,3.013,0,0,0,.555,3.553L23.985,43.641a2.9,2.9,0,0,0,3.553.555l.666-.333A33.892,33.892,0,0,1,32.647,53.3c8.55-3.664,8.884-12.326,7.218-18.322A48.227,48.227,0,0,0,53.3,3.221ZM34.424,9.772a6.439,6.439,0,1,1,9.106,9.106,6.368,6.368,0,0,1-9.106,0A6.467,6.467,0,0,1,34.424,9.772Z" transform="translate(0 0.005)" fill="#fff"/>
-        </g>
-      </g>
-    </svg>
-
-    <span>{{ title }} app is running!</span>
-
-    <svg id="rocket-smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632" viewBox="0 0 516.119 1083.632">
-      <title>Rocket Ship Smoke</title>
-      <path id="Path_40" data-name="Path 40" d="M644.6,141S143.02,215.537,147.049,870.207s342.774,201.755,342.774,201.755S404.659,847.213,388.815,762.2c-27.116-145.51-11.551-384.124,271.9-609.1C671.15,139.365,644.6,141,644.6,141Z" transform="translate(-147.025 -140.939)" fill="#f5f5f5"/>
-    </svg>
-
-  </div>
-
-  <!-- Resources -->
-  <h2>Resources</h2>
-  <p>Here are some links to help you get started:</p>
-
-  <div class="card-container">
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/tutorial">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
-      <span>Learn Angular</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/cli">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-      <span>CLI Documentation</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://material.angular.io">
-      <svg xmlns="http://www.w3.org/2000/svg" style="margin-right: 8px" width="21.813" height="23.453" viewBox="0 0 179.2 192.7"><path fill="#ffa726" d="M89.4 0 0 32l13.5 118.4 75.9 42.3 76-42.3L179.2 32 89.4 0z"/><path fill="#fb8c00" d="M89.4 0v192.7l76-42.3L179.2 32 89.4 0z"/><path fill="#ffe0b2" d="m102.9 146.3-63.3-30.5 36.3-22.4 63.7 30.6-36.7 22.3z"/><path fill="#fff3e0" d="M102.9 122.8 39.6 92.2l36.3-22.3 63.7 30.6-36.7 22.3z"/><path fill="#fff" d="M102.9 99.3 39.6 68.7l36.3-22.4 63.7 30.6-36.7 22.4z"/></svg>
-      <span>Angular Material</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://blog.angular.io/">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
-      <span>Angular Blog</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/devtools/">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M14.73,13.31C15.52,12.24,16,10.93,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.43,0,2.74-0.48,3.81-1.27L19.59,21L21,19.59L14.73,13.31z M9.5,14C7.01,14,5,11.99,5,9.5S7.01,5,9.5,5S14,7.01,14,9.5 S11.99,14,9.5,14z"/><polygon points="10.29,8.44 9.5,6 8.71,8.44 6.25,8.44 8.26,10.03 7.49,12.5 9.5,10.97 11.51,12.5 10.74,10.03 12.75,8.44"/></g></g></svg>
-      <span>Angular DevTools</span>
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-  </div>
-
-  <!-- Next Steps -->
-  <h2>Next Steps</h2>
-  <p>What do you want to do next with your app?</p>
-
-  <input type="hidden" #selection>
-
-  <div class="card-container">
-    <button class="card card-small" (click)="selection.value = 'component'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>New Component</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'material'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Angular Material</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'pwa'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Add PWA Support</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'dependency'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Add Dependency</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'test'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Run and Watch Tests</span>
-    </button>
-
-    <button class="card card-small" (click)="selection.value = 'build'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-      <span>Build for Production</span>
-    </button>
-  </div>
-
-  <!-- Terminal -->
-  <div class="terminal" [ngSwitch]="selection.value">
-      <pre *ngSwitchDefault>ng generate component xyz</pre>
-      <pre *ngSwitchCase="'material'">ng add @angular/material</pre>
-      <pre *ngSwitchCase="'pwa'">ng add @angular/pwa</pre>
-      <pre *ngSwitchCase="'dependency'">ng add _____</pre>
-      <pre *ngSwitchCase="'test'">ng test</pre>
-      <pre *ngSwitchCase="'build'">ng build</pre>
-  </div>
-
-  <!-- Links -->
-  <div class="card-container">
-    <a class="circle-link" title="Find a Local Meetup" href="https://www.meetup.com/find/?keywords=angular" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24.607" height="23.447" viewBox="0 0 24.607 23.447">
-        <title>Meetup Logo</title>
-        <path id="logo--mSwarm" d="M21.221,14.95A4.393,4.393,0,0,1,17.6,19.281a4.452,4.452,0,0,1-.8.069c-.09,0-.125.035-.154.117a2.939,2.939,0,0,1-2.506,2.091,2.868,2.868,0,0,1-2.248-.624.168.168,0,0,0-.245-.005,3.926,3.926,0,0,1-2.589.741,4.015,4.015,0,0,1-3.7-3.347,2.7,2.7,0,0,1-.043-.38c0-.106-.042-.146-.143-.166a3.524,3.524,0,0,1-1.516-.69A3.623,3.623,0,0,1,2.23,14.557a3.66,3.66,0,0,1,1.077-3.085.138.138,0,0,0,.026-.2,3.348,3.348,0,0,1-.451-1.821,3.46,3.46,0,0,1,2.749-3.28.44.44,0,0,0,.355-.281,5.072,5.072,0,0,1,3.863-3,5.028,5.028,0,0,1,3.555.666.31.31,0,0,0,.271.03A4.5,4.5,0,0,1,18.3,4.7a4.4,4.4,0,0,1,1.334,2.751,3.658,3.658,0,0,1,.022.706.131.131,0,0,0,.1.157,2.432,2.432,0,0,1,1.574,1.645,2.464,2.464,0,0,1-.7,2.616c-.065.064-.051.1-.014.166A4.321,4.321,0,0,1,21.221,14.95ZM13.4,14.607a2.09,2.09,0,0,0,1.409,1.982,4.7,4.7,0,0,0,1.275.221,1.807,1.807,0,0,0,.9-.151.542.542,0,0,0,.321-.545.558.558,0,0,0-.359-.534,1.2,1.2,0,0,0-.254-.078c-.262-.047-.526-.086-.787-.138a.674.674,0,0,1-.617-.75,3.394,3.394,0,0,1,.218-1.109c.217-.658.509-1.286.79-1.918a15.609,15.609,0,0,0,.745-1.86,1.95,1.95,0,0,0,.06-1.073,1.286,1.286,0,0,0-1.051-1.033,1.977,1.977,0,0,0-1.521.2.339.339,0,0,1-.446-.042c-.1-.092-.2-.189-.307-.284a1.214,1.214,0,0,0-1.643-.061,7.563,7.563,0,0,1-.614.512A.588.588,0,0,1,10.883,8c-.215-.115-.437-.215-.659-.316a2.153,2.153,0,0,0-.695-.248A2.091,2.091,0,0,0,7.541,8.562a9.915,9.915,0,0,0-.405.986c-.559,1.545-1.015,3.123-1.487,4.7a1.528,1.528,0,0,0,.634,1.777,1.755,1.755,0,0,0,1.5.211,1.35,1.35,0,0,0,.824-.858c.543-1.281,1.032-2.584,1.55-3.875.142-.355.28-.712.432-1.064a.548.548,0,0,1,.851-.24.622.622,0,0,1,.185.539,2.161,2.161,0,0,1-.181.621c-.337.852-.68,1.7-1.018,2.552a2.564,2.564,0,0,0-.173.528.624.624,0,0,0,.333.71,1.073,1.073,0,0,0,.814.034,1.22,1.22,0,0,0,.657-.655q.758-1.488,1.511-2.978.35-.687.709-1.37a1.073,1.073,0,0,1,.357-.434.43.43,0,0,1,.463-.016.373.373,0,0,1,.153.387.7.7,0,0,1-.057.236c-.065.157-.127.316-.2.469-.42.883-.846,1.763-1.262,2.648A2.463,2.463,0,0,0,13.4,14.607Zm5.888,6.508a1.09,1.09,0,0,0-2.179.006,1.09,1.09,0,0,0,2.179-.006ZM1.028,12.139a1.038,1.038,0,1,0,.01-2.075,1.038,1.038,0,0,0-.01,2.075ZM13.782.528a1.027,1.027,0,1,0-.011,2.055A1.027,1.027,0,0,0,13.782.528ZM22.21,6.95a.882.882,0,0,0-1.763.011A.882.882,0,0,0,22.21,6.95ZM4.153,4.439a.785.785,0,1,0,.787-.78A.766.766,0,0,0,4.153,4.439Zm8.221,18.22a.676.676,0,1,0-.677.666A.671.671,0,0,0,12.374,22.658ZM22.872,12.2a.674.674,0,0,0-.665.665.656.656,0,0,0,.655.643.634.634,0,0,0,.655-.644A.654.654,0,0,0,22.872,12.2ZM7.171-.123A.546.546,0,0,0,6.613.43a.553.553,0,1,0,1.106,0A.539.539,0,0,0,7.171-.123ZM24.119,9.234a.507.507,0,0,0-.493.488.494.494,0,0,0,.494.494.48.48,0,0,0,.487-.483A.491.491,0,0,0,24.119,9.234Zm-19.454,9.7a.5.5,0,0,0-.488-.488.491.491,0,0,0-.487.5.483.483,0,0,0,.491.479A.49.49,0,0,0,4.665,18.936Z" transform="translate(0 0.123)" fill="#f64060"/>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="Join the Conversation on Discord" href="https://discord.gg/angular" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 245 240">
-        <title>Discord Logo</title>
-        <path d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"/>
-        <path d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/>
-      </svg>
-    </a>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-      Love Angular?&nbsp;
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener"> Give our repo a star.
-        <div class="github-star-badge">
-            <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          Star
+<!-- ===== Header End ===== -->
+<app-nav-bar></app-nav-bar>
+<main [ngClass]="{ 'scrolled': common.scrollTop }"
+>
+  <!-- ===== Hero Start ===== -->
+  <section class="gj do ir hj sp jr i pg">
+    <!-- Hero Images -->
+    <div class="xc fn zd/2 2xl:ud-w-187.5 bd 2xl:ud-h-171.5 h q r">
+      <img src="assets/images/shape-01.svg" alt="shape" class="xc 2xl:ud-block h t -ud-left-[10%] ua" />
+      <img src="assets/images/shape-02.svg" alt="shape" class="xc 2xl:ud-block h u p va" />
+      <img src="assets/images/shape-03.svg" alt="shape" class="xc 2xl:ud-block h v w va" />
+      <img src="assets/images/shape-04.svg" alt="shape" class="h q r" />
+      <img src="assets/images/hero.png" alt="Woman" class="h q r ua" />
+    </div>
+
+    <!-- Hero Content -->
+    <div class="bb ze ki xn 2xl:ud-px-0">
+      <div class="tc _o">
+        <div class="animate_left jn/2">
+          <h1 class="fk vj zp or kk wm wb">Un soutien en santé mentale qui vous donne du <span class="bg-gradient-to-l from-cyan-500 via-cyan-900 to-black bg-clip-text	 text-transparent">pouvoir</span></h1>
+          <p class="fq text-xl">
+            Il est normal de demander de l'aide          </p>
+
+          <div class="tc tf yo zf mb">
+            <a href="#" class="ek jk lk gh gi hi rg ml il vc _d _l"
+            >Get Started Now</a
+            >
+
+            <span class="tc sf">
+                  <a href="#" class="inline-block ek xj kk wm"> Call us (0123) 456 – 789 </a>
+                  <span class="inline-block">For any question or concern</span>
+                </span>
+          </div>
         </div>
-      </a>
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-      </a>
-  </footer>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Hero End ===== -->
 
-  <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
-    <title>Gray Clouds Background</title>
-    <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
+  <!-- ===== Small Features Start ===== -->
+  <section id="features">
+    <div class="bb ze ki yn 2xl:ud-px-12.5">
+      <div class="tc uf zo xf ap zf bp mq">
+        <!-- Small Features Item -->
+        <div class="animate_top kn to/3 tc cg oq">
+          <div class="tc wf xf cf ae cd rg mh">
+            <img src="assets/images/icon-01.svg" alt="Icon" />
+          </div>
+          <div>
+            <h4 class="ek yj go kk wm xb">24/7 Support</h4>
+            <p>Lorem ipsum dolor sit amet conse adipiscing elit.</p>
+          </div>
+        </div>
+
+        <!-- Small Features Item -->
+        <div class="animate_top kn to/3 tc cg oq">
+          <div class="tc wf xf cf ae cd rg nh">
+            <img src="assets/images/icon-02.svg" alt="Icon" />
+          </div>
+          <div>
+            <h4 class="ek yj go kk wm xb">Take Ownership</h4>
+            <p>Lorem ipsum dolor sit amet conse adipiscing elit.</p>
+          </div>
+        </div>
+
+        <!-- Small Features Item -->
+        <div class="animate_top kn to/3 tc cg oq">
+          <div class="tc wf xf cf ae cd rg oh">
+            <img src="assets/images/icon-03.svg" alt="Icon" />
+          </div>
+          <div>
+            <h4 class="ek yj go kk wm xb">Team Work</h4>
+            <p>Lorem ipsum dolor sit amet conse adipiscing elit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Small Features End ===== -->
+
+  <!-- ===== About Start ===== -->
+  <section class="ji gp uq 2xl:ud-py-35 pg">
+    <div class="bb ze ki xn wq">
+      <div class="tc wf gg qq">
+        <!-- About Images -->
+        <div class="animate_left xc gn gg jn/2 i">
+          <div>
+            <img src="assets/images/shape-05.svg" alt="Shape" class="h -ud-left-5 x" />
+            <img src="assets/images/about-01.png" alt="About" class="ib" />
+            <img src="assets/images/about-02.png" alt="About" />
+          </div>
+          <div>
+            <img src="assets/images/shape-06.svg" alt="Shape" />
+            <img src="assets/images/about-03.png" alt="About" class="ob gb" />
+            <img src="assets/images/shape-07.svg" alt="Shape" class="bb" />
+          </div>
+        </div>
+
+        <!-- About Content -->
+        <div class="animate_right jn/2">
+          <h4 class="ek yj mk gb">Why Choose Us</h4>
+          <h2 class="fk vj zp pr kk wm qb">We Make Our customers happy by giving Best services.</h2>
+          <p class="uo">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.</p>
+
+          <a href="https://www.youtube.com/watch?v=xcJtL7QggTI" data-fslightbox class="vc wf hg mb">
+                <span class="tc wf xf be dd rg i gh ua">
+                  <span class="nf h vc yc vd rg gh qk -ud-z-1"></span>
+                  <img src="assets/images/icon-play.svg" alt="Play" />
+                </span>
+            <span class="kk">SEE HOW WE WORK</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== About End ===== -->
+
+  <!-- ===== Team Start ===== -->
+  <section class="i pg ji gp uq">
+    <!-- Bg Shapes -->
+    <span class="rc h s r vd fd/5 fh rm"></span>
+    <img src="assets/images/shape-08.svg" alt="Shape Bg" class="h q r" />
+    <img src="assets/images/shape-09.svg" alt="Shape" class="of h y z/2" />
+    <img src="assets/images/shape-10.svg" alt="Shape" class="h _ aa" />
+    <img src="assets/images/shape-11.svg" alt="Shape" class="of h m ba" />
+
+    <!-- Section Title Start -->
+    <div
+      x-data="{ sectionTitle: `Meet With Our Creative Dedicated Team`, sectionTitleText: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.`}"
+    >
+      <div class="animate_top bb ze rj ki xn vq">
+        <h2
+          x-text="sectionTitle"
+          class="fk vj pr kk wm on/5 gq/2 bb _b"
+        >
+        </h2>
+        <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+      </div>
+
+
+    </div>
+    <!-- Section Title End -->
+
+    <div class="bb ze i va ki xn xq jb jo">
+      <div class="wc qf pn xo gg cp">
+        <!-- Team Item -->
+        <div class="animate_top rj">
+          <div class="c i pg z-1">
+            <img class="vd" src="assets/images/team-01.png" alt="Team" />
+
+            <div class="ef im nl il">
+              <span class="h -ud-left-5 -ud-bottom-21 rc de gd gh if wa"></span>
+              <span class="h s p rc vd hd mh va"></span>
+              <div class="h s p vd ij jj xa">
+                <ul class="tc xf wf gg">
+                  <li>
+                    <a href="#">
+                      <svg class="uh vl ml il" width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.66634 10.25H8.74968L9.58301 6.91669H6.66634V5.25002C6.66634 4.39169 6.66634 3.58335 8.33301 3.58335H9.58301V0.783354C9.31134 0.74752 8.28551 0.666687 7.20218 0.666687C4.93968 0.666687 3.33301 2.04752 3.33301 4.58335V6.91669H0.833008V10.25H3.33301V17.3334H6.66634V10.25Z" fill=""/>
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <svg class="uh vl ml il" width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.4683 1.71333C16.8321 1.99475 16.1574 2.17956 15.4666 2.26167C16.1947 1.82619 16.7397 1.14085 16.9999 0.333333C16.3166 0.74 15.5674 1.025 14.7866 1.17917C14.2621 0.617982 13.5669 0.245803 12.809 0.120487C12.0512 -0.00482822 11.2732 0.123742 10.596 0.486211C9.91875 0.848679 9.38024 1.42474 9.06418 2.12483C8.74812 2.82492 8.67221 3.60982 8.84825 4.3575C7.46251 4.28805 6.10686 3.92794 4.86933 3.30055C3.63179 2.67317 2.54003 1.79254 1.66492 0.715833C1.35516 1.24788 1.19238 1.85269 1.19326 2.46833C1.19326 3.67667 1.80826 4.74417 2.74326 5.36917C2.18993 5.35175 1.64878 5.20232 1.16492 4.93333V4.97667C1.16509 5.78142 1.44356 6.56135 1.95313 7.18422C2.46269 7.80709 3.17199 8.23456 3.96075 8.39417C3.4471 8.53337 2.90851 8.55388 2.38576 8.45417C2.60814 9.14686 3.04159 9.75267 3.62541 10.1868C4.20924 10.6209 4.9142 10.8615 5.64159 10.875C4.91866 11.4428 4.0909 11.8625 3.20566 12.1101C2.32041 12.3578 1.39503 12.4285 0.482422 12.3183C2.0755 13.3429 3.93 13.8868 5.82409 13.885C12.2349 13.885 15.7408 8.57417 15.7408 3.96833C15.7408 3.81833 15.7366 3.66667 15.7299 3.51833C16.4123 3.02514 17.0013 2.41418 17.4691 1.71417L17.4683 1.71333Z" fill=""/>
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <svg class="uh vl ml il" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.78353 2.16665C3.78331 2.60867 3.6075 3.03251 3.29478 3.34491C2.98207 3.65732 2.55806 3.8327 2.11603 3.83248C1.674 3.83226 1.25017 3.65645 0.937761 3.34373C0.625357 3.03102 0.449975 2.60701 0.450196 2.16498C0.450417 1.72295 0.626223 1.29912 0.93894 0.986712C1.25166 0.674307 1.67567 0.498925 2.1177 0.499146C2.55972 0.499367 2.98356 0.675173 3.29596 0.98789C3.60837 1.30061 3.78375 1.72462 3.78353 2.16665V2.16665ZM3.83353 5.06665H0.500195V15.5H3.83353V5.06665ZM9.1002 5.06665H5.78353V15.5H9.06686V10.025C9.06686 6.97498 13.0419 6.69165 13.0419 10.025V15.5H16.3335V8.89165C16.3335 3.74998 10.4502 3.94165 9.06686 6.46665L9.1002 5.06665V5.06665Z" fill=""/>
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="yj go kk wm ob zb">Olivia Andrium</h4>
+          <p>Product Manager</p>
+        </div>
+
+        <!-- Team Item -->
+        <div class="animate_top rj">
+          <div class="c i pg z-1">
+            <img class="vd" src="assets/images/team-02.png" alt="Team" />
+
+            <div class="ef im nl il">
+              <span class="h -ud-left-5 -ud-bottom-21 rc de gd gh if wa"></span>
+              <span class="h s p rc vd hd mh va"></span>
+              <div class="h s p vd ij jj xa">
+                <ul class="tc xf wf gg">
+                  <li>
+                    <a href="#">
+                      <svg class="uh vl ml il" width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.66634 10.25H8.74968L9.58301 6.91669H6.66634V5.25002C6.66634 4.39169 6.66634 3.58335 8.33301 3.58335H9.58301V0.783354C9.31134 0.74752 8.28551 0.666687 7.20218 0.666687C4.93968 0.666687 3.33301 2.04752 3.33301 4.58335V6.91669H0.833008V10.25H3.33301V17.3334H6.66634V10.25Z" fill=""/>
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <svg class="uh vl ml il" width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.4683 1.71333C16.8321 1.99475 16.1574 2.17956 15.4666 2.26167C16.1947 1.82619 16.7397 1.14085 16.9999 0.333333C16.3166 0.74 15.5674 1.025 14.7866 1.17917C14.2621 0.617982 13.5669 0.245803 12.809 0.120487C12.0512 -0.00482822 11.2732 0.123742 10.596 0.486211C9.91875 0.848679 9.38024 1.42474 9.06418 2.12483C8.74812 2.82492 8.67221 3.60982 8.84825 4.3575C7.46251 4.28805 6.10686 3.92794 4.86933 3.30055C3.63179 2.67317 2.54003 1.79254 1.66492 0.715833C1.35516 1.24788 1.19238 1.85269 1.19326 2.46833C1.19326 3.67667 1.80826 4.74417 2.74326 5.36917C2.18993 5.35175 1.64878 5.20232 1.16492 4.93333V4.97667C1.16509 5.78142 1.44356 6.56135 1.95313 7.18422C2.46269 7.80709 3.17199 8.23456 3.96075 8.39417C3.4471 8.53337 2.90851 8.55388 2.38576 8.45417C2.60814 9.14686 3.04159 9.75267 3.62541 10.1868C4.20924 10.6209 4.9142 10.8615 5.64159 10.875C4.91866 11.4428 4.0909 11.8625 3.20566 12.1101C2.32041 12.3578 1.39503 12.4285 0.482422 12.3183C2.0755 13.3429 3.93 13.8868 5.82409 13.885C12.2349 13.885 15.7408 8.57417 15.7408 3.96833C15.7408 3.81833 15.7366 3.66667 15.7299 3.51833C16.4123 3.02514 17.0013 2.41418 17.4691 1.71417L17.4683 1.71333Z" fill=""/>
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <svg class="uh vl ml il" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.78353 2.16665C3.78331 2.60867 3.6075 3.03251 3.29478 3.34491C2.98207 3.65732 2.55806 3.8327 2.11603 3.83248C1.674 3.83226 1.25017 3.65645 0.937761 3.34373C0.625357 3.03102 0.449975 2.60701 0.450196 2.16498C0.450417 1.72295 0.626223 1.29912 0.93894 0.986712C1.25166 0.674307 1.67567 0.498925 2.1177 0.499146C2.55972 0.499367 2.98356 0.675173 3.29596 0.98789C3.60837 1.30061 3.78375 1.72462 3.78353 2.16665V2.16665ZM3.83353 5.06665H0.500195V15.5H3.83353V5.06665ZM9.1002 5.06665H5.78353V15.5H9.06686V10.025C9.06686 6.97498 13.0419 6.69165 13.0419 10.025V15.5H16.3335V8.89165C16.3335 3.74998 10.4502 3.94165 9.06686 6.46665L9.1002 5.06665V5.06665Z" fill=""/>
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="yj go kk wm ob zb">Jemse Kemorun</h4>
+          <p>Product Designer</p>
+        </div>
+
+        <!-- Team Item -->
+        <div class="animate_top rj">
+          <div class="c i pg z-1">
+            <img class="vd" src="assets/images/team-03.png" alt="Team" />
+
+            <div class="ef im nl il">
+              <span class="h -ud-left-5 -ud-bottom-21 rc de gd gh if wa"></span>
+              <span class="h s p rc vd hd mh va"></span>
+              <div class="h s p vd ij jj xa">
+                <ul class="tc xf wf gg">
+                  <li>
+                    <a href="#">
+                      <svg class="uh vl ml il" width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6.66634 10.25H8.74968L9.58301 6.91669H6.66634V5.25002C6.66634 4.39169 6.66634 3.58335 8.33301 3.58335H9.58301V0.783354C9.31134 0.74752 8.28551 0.666687 7.20218 0.666687C4.93968 0.666687 3.33301 2.04752 3.33301 4.58335V6.91669H0.833008V10.25H3.33301V17.3334H6.66634V10.25Z" fill=""/>
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <svg class="uh vl ml il" width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.4683 1.71333C16.8321 1.99475 16.1574 2.17956 15.4666 2.26167C16.1947 1.82619 16.7397 1.14085 16.9999 0.333333C16.3166 0.74 15.5674 1.025 14.7866 1.17917C14.2621 0.617982 13.5669 0.245803 12.809 0.120487C12.0512 -0.00482822 11.2732 0.123742 10.596 0.486211C9.91875 0.848679 9.38024 1.42474 9.06418 2.12483C8.74812 2.82492 8.67221 3.60982 8.84825 4.3575C7.46251 4.28805 6.10686 3.92794 4.86933 3.30055C3.63179 2.67317 2.54003 1.79254 1.66492 0.715833C1.35516 1.24788 1.19238 1.85269 1.19326 2.46833C1.19326 3.67667 1.80826 4.74417 2.74326 5.36917C2.18993 5.35175 1.64878 5.20232 1.16492 4.93333V4.97667C1.16509 5.78142 1.44356 6.56135 1.95313 7.18422C2.46269 7.80709 3.17199 8.23456 3.96075 8.39417C3.4471 8.53337 2.90851 8.55388 2.38576 8.45417C2.60814 9.14686 3.04159 9.75267 3.62541 10.1868C4.20924 10.6209 4.9142 10.8615 5.64159 10.875C4.91866 11.4428 4.0909 11.8625 3.20566 12.1101C2.32041 12.3578 1.39503 12.4285 0.482422 12.3183C2.0755 13.3429 3.93 13.8868 5.82409 13.885C12.2349 13.885 15.7408 8.57417 15.7408 3.96833C15.7408 3.81833 15.7366 3.66667 15.7299 3.51833C16.4123 3.02514 17.0013 2.41418 17.4691 1.71417L17.4683 1.71333Z" fill=""/>
+                      </svg>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <svg class="uh vl ml il" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.78353 2.16665C3.78331 2.60867 3.6075 3.03251 3.29478 3.34491C2.98207 3.65732 2.55806 3.8327 2.11603 3.83248C1.674 3.83226 1.25017 3.65645 0.937761 3.34373C0.625357 3.03102 0.449975 2.60701 0.450196 2.16498C0.450417 1.72295 0.626223 1.29912 0.93894 0.986712C1.25166 0.674307 1.67567 0.498925 2.1177 0.499146C2.55972 0.499367 2.98356 0.675173 3.29596 0.98789C3.60837 1.30061 3.78375 1.72462 3.78353 2.16665V2.16665ZM3.83353 5.06665H0.500195V15.5H3.83353V5.06665ZM9.1002 5.06665H5.78353V15.5H9.06686V10.025C9.06686 6.97498 13.0419 6.69165 13.0419 10.025V15.5H16.3335V8.89165C16.3335 3.74998 10.4502 3.94165 9.06686 6.46665L9.1002 5.06665V5.06665Z" fill=""/>
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="yj go kk wm ob zb">Avi Pestarica</h4>
+          <p>Web Designer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Team End ===== -->
+
+  <!-- ===== Services Start ===== -->
+  <section class="lj tp kr">
+    <!-- Section Title Start -->
+    <div
+      x-data="{ sectionTitle: `We Offer The Best Quality Service for You`, sectionTitleText: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam ante in maximus.`}"
+    >
+      <div class="animate_top bb ze rj ki xn vq">
+        <h2
+          x-text="sectionTitle"
+          class="fk vj pr kk wm on/5 gq/2 bb _b"
+        >
+        </h2>
+        <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+      </div>
+
+
+    </div>
+    <!-- Section Title End -->
+
+    <div class="bb ze ki xn yq mb en">
+      <div class="wc qf pn xo ng">
+        <!-- Service Item -->
+        <div class="animate_top sg oi pi zq ml il am cn _m">
+          <img src="assets/images/icon-04.svg" alt="Icon" />
+          <h4 class="ek zj kk wm nb _b">Crafted for Startups</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+        </div>
+
+        <!-- Service Item -->
+        <div class="animate_top sg oi pi zq ml il am cn _m">
+          <img src="assets/images/icon-05.svg" alt="Icon" />
+          <h4 class="ek zj kk wm nb _b">High-quality Design</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+        </div>
+
+        <!-- Service Item -->
+        <div class="animate_top sg oi pi zq ml il am cn _m">
+          <img src="assets/images/icon-06.svg" alt="Icon" />
+          <h4 class="ek zj kk wm nb _b">All Essential Sections</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+        </div>
+
+        <!-- Service Item -->
+        <div class="animate_top sg oi pi zq ml il am cn _m">
+          <img src="assets/images/icon-07.svg" alt="Icon" />
+          <h4 class="ek zj kk wm nb _b">Speed Optimized</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+        </div>
+
+        <!-- Service Item -->
+        <div class="animate_top sg oi pi zq ml il am cn _m">
+          <img src="assets/images/icon-05.svg" alt="Icon" />
+          <h4 class="ek zj kk wm nb _b">Fully Customizable</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+        </div>
+
+        <!-- Service Item -->
+        <div class="animate_top sg oi pi zq ml il am cn _m">
+          <img src="assets/images/icon-06.svg" alt="Icon" />
+          <h4 class="ek zj kk wm nb _b">Regular Updates</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In convallis tortor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Services End ===== -->
+
+  <!-- ===== Pricing Table Start ===== -->
+  <section x-data="setup()" class="i pg fh rm ji gp uq">
+    <!-- Bg Shapes -->
+    <img src="assets/images/shape-06.svg" alt="Shape" class="h aa y" />
+    <img src="assets/images/shape-03.svg" alt="Shape" class="h ca u" />
+    <img src="assets/images/shape-07.svg" alt="Shape" class="h w da ee" />
+    <img src="assets/images/shape-12.svg" alt="Shape" class="h p s" />
+    <img src="assets/images/shape-13.svg" alt="Shape" class="h r q" />
+
+    <!-- Section Title Start -->
+    <div
+      x-data="{ sectionTitle: `We Offer Great Affordable Premium Prices.`, sectionTitleText: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using.`}"
+    >
+      <div class="animate_top bb ze rj ki xn vq">
+        <h2
+          x-text="sectionTitle"
+          class="fk vj pr kk wm on/5 gq/2 bb _b"
+        >
+        </h2>
+        <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+      </div>
+
+
+    </div>
+    <!-- Section Title End -->
+
+    <!-- Pricing switcher -->
+    <div class="tc wf xf jb og">
+      <span class="ek kk wm">Bill Monthly</span>
+      <button class="i rg gm" x-cloak (click)="common.billPlan == 'monthly' ? common.billPlan = 'annually' : common.billPlan = 'monthly'">
+        <div class="fe id bl gh rg xk outline-none"></div>
+        <div
+          class="h vc wf xf ge jd cl jl ml mf hh rg yk ea fa"
+          [ngClass]="{ 'ff': common.billPlan == 'monthly', 'gf': common.billPlan == 'annually' }"
+        ></div>
+      </button>
+      <span class="ek kk wm">Bill Annually</span>
+    </div>
+
+    <!-- Pricing Table -->
+    <div class="bb ze i va ki xn yq bc">
+      <div class="wc qf pn xo jg">
+        <template x-for="(plan, i) in plans" x-key="i">
+          <!-- Pricing Item -->
+          <div class="animate_top rj sg hh sm vk xm hi nj oj">
+            <h4 x-text="plan.name" class="wj kk wm fb"></h4>
+
+            <div class="tc wf xf kg cc">
+              <h2
+                :class="plan.name == 'Basic' ? 'text-green-500' : ''"
+                x-text="`$${billPlan == 'monthly' ? plan.price.monthly : plan.price.annually}`"
+                class="fk _j kk wm"
+              ></h2>
+              <span x-text="billPlan == 'monthly' ? '/per month' : '/per year'" class="sc ak kk wm"></span>
+            </div>
+
+            <p class="ur dc">No credit card required</p>
+
+            <!-- Button -->
+            <a
+              href="#"
+              class="ek rg lk ml il gi ri"
+              :class="plan.name == 'Growth Plan' ? 'gh sl' : 'mh tl'"
+            >
+              Try for free
+            </a>
+
+            <!-- Features -->
+            <ul class="tc sf bg ob fb">
+              <template x-for="(feature, i) in plan.features" x-key="i">
+                <li x-text="feature"></li>
+              </template>
+            </ul>
+
+            <p class="kk wm">7-day free trial</p>
+          </div>
+        </template>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Pricing Table End ===== -->
+
+  <!-- ===== Projects Start ===== -->
+  <section class="pg pj vp mr oj wp nr">
+    <!-- Section Title Start -->
+    <div
+      x-data="{ sectionTitle: `We Offer Great Affordable Premium Prices.`, sectionTitleText: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using.`}"
+    >
+      <div class="animate_top bb ze rj ki xn vq">
+        <h2
+          x-text="sectionTitle"
+          class="fk vj pr kk wm on/5 gq/2 bb _b"
+        >
+        </h2>
+        <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+      </div>
+
+
+    </div>
+    <!-- Section Title End -->
+
+    <div class="bb ze ki xn 2xl:ud-px-0 jb">
+      <!-- Porject Tab -->
+      <div
+        class="projects-tab _e bb tc uf wf xf cg rg hh rm vk xm si ti fc"
+      >
+        <button
+          data-filter="*"
+          (click)="common.filterTab= 1"
+          [ngClass]="{ 'gh lk' : common.filterTab === 1 }"
+          class="project-tab-btn ek rg ml il vi mi"
+        >
+          All
+        </button>
+        <button
+          data-filter=".branding"
+          (click)="common.filterTab = 2"
+          [ngClass]="{ 'gh lk' : common.filterTab === 2 }"
+          class="project-tab-btn ek rg ml il vi mi"
+        >
+          Branding Strategy
+        </button>
+        <button
+          data-filter=".digital"
+          (click)="common.filterTab = 3"
+          [ngClass]="{ 'gh lk' : common.filterTab === 3 }"
+          class="project-tab-btn ek rg ml il vi mi"
+        >
+          Digital Experiences
+        </button>
+        <button
+          data-filter=".ecommerce"
+          (click)="common.filterTab = 4"
+          [ngClass]="{ 'gh lk' : common.filterTab === 4 }"
+          class="project-tab-btn ek rg ml il vi mi"
+        >
+          Ecommerce
+        </button>
+      </div>
+
+      <!-- Projects item wrapper -->
+      <div class="projects-wrapper tc -ud-mx-5">
+        <div class="project-sizer"></div>
+        <!-- Project Item -->
+        <div class="project-item wi fb vd jn/2 to/3 branding ecommerce" >
+          <div class="c i pg sg z-1">
+            <img src="assets/images/project-01.png" alt="Project" />
+
+            <div
+              class="h s r df nl kl im tc sf wf xf vd yc sg al hh/20 z-10"
+            >
+              <h4 class="ek tj kk hc">Photo Retouching</h4>
+              <p>Branded Ecommerce</p>
+              <a
+                class="c tc wf xf ie ld rg _g dh ml il ph jm km jc"
+                href="#"
+              >
+                <svg class="th lm ml il" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.4763 6.16664L6.00634 1.69664L7.18467 0.518311L13.6663 6.99998L7.18467 13.4816L6.00634 12.3033L10.4763 7.83331H0.333008V6.16664H10.4763Z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Item -->
+        <div class="project-item wi fb vd jn/2 to/3 digital">
+          <div class="c i pg sg z-1">
+            <img src="assets/images/project-02.png" alt="Project" />
+
+            <div
+              class="h s r df nl kl im tc sf wf xf vd yc sg al hh/20 z-10"
+            >
+              <h4 class="ek tj kk hc">Photo Retouching</h4>
+              <p>Branded Ecommerce</p>
+              <a
+                class="c tc wf xf ie ld rg _g dh ml il ph jm km jc"
+                href="#"
+              >
+                <svg class="th lm ml il" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.4763 6.16664L6.00634 1.69664L7.18467 0.518311L13.6663 6.99998L7.18467 13.4816L6.00634 12.3033L10.4763 7.83331H0.333008V6.16664H10.4763Z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Item -->
+        <div class="project-item wi fb vd jn/2 to/3 branding ecommerce">
+          <div class="c i pg sg z-1">
+            <img src="assets/images/project-04.png" alt="Project" />
+
+            <div
+              class="h s r df nl kl im tc sf wf xf vd yc sg al hh/20 z-10"
+            >
+              <h4 class="ek tj kk hc">Photo Retouching</h4>
+              <p>Branded Ecommerce</p>
+              <a
+                class="c tc wf xf ie ld rg _g dh ml il ph jm km jc"
+                href="#"
+              >
+                <svg class="th lm ml il" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.4763 6.16664L6.00634 1.69664L7.18467 0.518311L13.6663 6.99998L7.18467 13.4816L6.00634 12.3033L10.4763 7.83331H0.333008V6.16664H10.4763Z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Item -->
+        <div class="project-item wi fb vd vo/3 digital ecommerce">
+          <div class="c i pg sg z-1">
+            <img src="assets/images/project-03.png" alt="Project" />
+
+            <div
+              class="h s r df nl kl im tc sf wf xf vd yc sg al hh/20 z-10"
+            >
+              <h4 class="ek tj kk hc">Photo Retouching</h4>
+              <p>Branded Ecommerce</p>
+              <a
+                class="c tc wf xf ie ld rg _g dh ml il ph jm km jc"
+                href="#"
+              >
+                <svg class="th lm ml il" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.4763 6.16664L6.00634 1.69664L7.18467 0.518311L13.6663 6.99998L7.18467 13.4816L6.00634 12.3033L10.4763 7.83331H0.333008V6.16664H10.4763Z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Projects End ===== -->
+
+  <!-- ===== Testimonials Start ===== -->
+  <section class="hj rp hr">
+    <!-- Section Title Start -->
+    <div
+      x-data="{ sectionTitle: `Client’s Testimonials`, sectionTitleText: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using.`}"
+    >
+      <div class="animate_top bb ze rj ki xn vq">
+        <h2
+          x-text="sectionTitle"
+          class="fk vj pr kk wm on/5 gq/2 bb _b"
+        >
+        </h2>
+        <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+      </div>
+
+
+    </div>
+    <!-- Section Title End -->
+
+    <div class="bb ze ki xn ar">
+      <div class="animate_top jb cq">
+        <!-- Slider main container -->
+        <div class="swiper testimonial-01">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <div class="i hh rm sg vk xm bi qj">
+                <!-- Border Shape -->
+                <span class="rc je md/2 gh xg h q r"></span>
+                <span class="rc je md/2 mh yg h q p"></span>
+
+                <div class="tc sf rn tn un zf dp">
+                  <img class="bf" src="assets/images/testimonial.png" alt="User" />
+
+                  <div>
+                    <img src="assets/images/icon-quote.svg" alt="Quote" />
+                    <p class="ek ik xj _p kc fb">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dolor diam, feugiat quis enim sed, ullamcorper semper ligula. Mauris consequat justo volutpat.
+                    </p>
+
+                    <div class="tc yf vf">
+                      <div>
+                        <span class="rc ek xj kk wm zb">Devid Smith</span>
+                        <span class="rc">Founter @democompany</span>
+                      </div>
+
+                      <img class="rk" src="assets/images/brand-light-02.svg" alt="Brand" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- If we need navigation -->
+          <div class="tc wf xf fg jb">
+            <div
+              class="swiper-button-prev c tc wf xf ie ld rg _g dh pf ml vr hh rm tl zm rl ym"
+            >
+              <svg class="th lm" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M3.52366 7.83336L7.99366 12.3034L6.81533 13.4817L0.333663 7.00002L6.81533 0.518357L7.99366 1.69669L3.52366 6.16669L13.667 6.16669L13.667 7.83336L3.52366 7.83336Z"
+                  fill=""
+                />
+              </svg>
+            </div>
+            <div
+              class="swiper-button-next c tc wf xf ie ld rg _g dh pf ml vr hh rm tl zm rl ym"
+            >
+              <svg class="th lm" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.4763 6.16664L6.00634 1.69664L7.18467 0.518311L13.6663 6.99998L7.18467 13.4816L6.00634 12.3033L10.4763 7.83331H0.333008V6.16664H10.4763Z" fill="" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Testimonials End ===== -->
+
+  <!-- ===== Counter Start ===== -->
+  <section class="i pg qh rm ji hp">
+    <img src="assets/images/shape-11.svg" alt="Shape" class="of h ga ha ke" />
+    <img src="assets/images/shape-07.svg" alt="Shape" class="h ia o ae jf" />
+    <img src="assets/images/shape-14.svg" alt="Shape" class="h ja ka" />
+    <img src="assets/images/shape-15.svg" alt="Shape" class="h q p" />
+
+    <div class="bb ze i va ki xn br">
+      <div class="tc uf sn tn xf un gg">
+        <div class="animate_top me/5 ln rj">
+          <h2 class="gk vj zp or kk wm hc">785</h2>
+          <p class="ek bk aq">Global Brands</p>
+        </div>
+        <div class="animate_top me/5 ln rj">
+          <h2 class="gk vj zp or kk wm hc">533</h2>
+          <p class="ek bk aq">Happy Clients</p>
+        </div>
+        <div class="animate_top me/5 ln rj">
+          <h2 class="gk vj zp or kk wm hc">865</h2>
+          <p class="ek bk aq">Winning Award</p>
+        </div>
+        <div class="animate_top me/5 ln rj">
+          <h2 class="gk vj zp or kk wm hc">346</h2>
+          <p class="ek bk aq">Happy Clients</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Counter End ===== -->
+
+  <!-- ===== Clients Start ===== -->
+  <section class="pj vp mr">
+    <!-- Section Title Start -->
+    <div
+      x-data="{ sectionTitle: `Trusted by Global Brands`, sectionTitleText: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using.`}"
+    >
+      <div class="animate_top bb ze rj ki xn vq">
+        <h2
+          x-text="sectionTitle"
+          class="fk vj pr kk wm on/5 gq/2 bb _b"
+        >
+        </h2>
+        <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+      </div>
+
+
+    </div>
+    <!-- Section Title End -->
+
+    <div class="bb ze ah ch pm hj xp ki xn 2xl:ud-px-49 bc">
+      <div class="wc rf qn zf cp kq xf wf">
+        <a href="#" class="rc animate_top">
+          <img class="th wl ml il zl om" src="assets/images/brand-light-01.svg" alt="Clients" />
+          <img class="xc sk ml il zl nm" src="assets/images/brand-dark-01.svg" alt="Clients" />
+        </a>
+        <a href="#" class="rc animate_top">
+          <img class="tk ml il zl om" src="assets/images/brand-light-02.svg" alt="Clients" />
+          <img class="xc sk ml il zl nm" src="assets/images/brand-dark-02.svg" alt="Clients" />
+        </a>
+        <a href="#" class="rc animate_top">
+          <img class="tk ml il zl om" src="assets/images/brand-light-03.svg" alt="Clients" />
+          <img class="xc sk ml il zl nm" src="assets/images/brand-dark-03.svg" alt="Clients" />
+        </a>
+        <a href="#" class="rc animate_top">
+          <img class="tk ml il zl om" src="assets/images/brand-light-04.svg" alt="Clients" />
+          <img class="xc sk ml il zl nm" src="assets/images/brand-dark-04.svg" alt="Clients" />
+        </a>
+        <a href="#" class="rc animate_top">
+          <img class="tk ml il zl om" src="assets/images/brand-light-05.svg" alt="Clients" />
+          <img class="xc sk ml il zl nm" src="assets/images/brand-dark-05.svg" alt="Clients" />
+        </a>
+        <a href="#" class="rc animate_top">
+          <img class="tk ml il zl om" src="assets/images/brand-light-06.svg" alt="Clients" />
+          <img class="xc sk ml il zl nm" src="assets/images/brand-dark-06.svg" alt="Clients" />
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Clients End ===== -->
+
+  <!-- ===== Blog Start ===== -->
+  <section class="ji gp uq">
+    <!-- Section Title Start -->
+    <div
+      x-data="{ sectionTitle: `Latest Blogs & News`, sectionTitleText: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using.`}"
+    >
+      <div class="animate_top bb ze rj ki xn vq">
+        <h2
+          x-text="sectionTitle"
+          class="fk vj pr kk wm on/5 gq/2 bb _b"
+        >
+        </h2>
+        <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+      </div>
+
+
+    </div>
+    <!-- Section Title End -->
+
+    <div class="bb ye ki xn vq jb jo">
+      <div class="wc qf pn xo zf iq">
+        <!-- Blog Item -->
+        <div class="animate_top sg vk rm xm">
+          <div class="c rc i z-1 pg">
+            <img class="w-full" src="assets/images/blog-01.png" alt="Blog" />
+
+            <div
+              class="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10"
+            >
+              <a href="./blog-single.html" class="vc ek rg lk gh sl ml il gi hi"
+              >Read More</a
+              >
+            </div>
+          </div>
+
+          <div class="yh">
+            <div class="tc uf wf ag jq">
+              <div class="tc wf ag">
+                <img src="assets/images/icon-man.svg" alt="User" />
+                <p>Musharof Chy</p>
+              </div>
+              <div class="tc wf ag">
+                <img src="assets/images/icon-calender.svg" alt="Calender" />
+                <p>25 Dec, 2025</p>
+              </div>
+            </div>
+            <h4 class="ek tj ml il kk wm xl eq lb">
+              <a href="blog-single.html">Free advertising for your online business</a>
+            </h4>
+          </div>
+        </div>
+
+        <!-- Blog Item -->
+        <div class="animate_top sg vk rm xm">
+          <div class="c rc i z-1 pg">
+            <img class="w-full" src="assets/images/blog-02.png" alt="Blog" />
+
+            <div
+              class="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10"
+            >
+              <a href="./blog-single.html" class="vc ek rg lk gh sl ml il gi hi"
+              >Read More</a
+              >
+            </div>
+          </div>
+
+          <div class="yh">
+            <div class="tc uf wf ag jq">
+              <div class="tc wf ag">
+                <img src="assets/images/icon-man.svg" alt="User" />
+                <p>Musharof Chy</p>
+              </div>
+              <div class="tc wf ag">
+                <img src="assets/images/icon-calender.svg" alt="Calender" />
+                <p>25 Dec, 2025</p>
+              </div>
+            </div>
+            <h4 class="ek tj ml il kk wm xl eq lb">
+              <a href="blog-single.html">9 simple ways to improve your design skills</a>
+            </h4>
+          </div>
+        </div>
+
+        <!-- Blog Item -->
+        <div class="animate_top sg vk rm xm">
+          <div class="c rc i z-1 pg">
+            <img class="w-full" src="assets/images/blog-03.png" alt="Blog" />
+
+            <div
+              class="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10"
+            >
+              <a href="./blog-single.html" class="vc ek rg lk gh sl ml il gi hi"
+              >Read More</a
+              >
+            </div>
+          </div>
+
+          <div class="yh">
+            <div class="tc uf wf ag jq">
+              <div class="tc wf ag">
+                <img src="assets/images/icon-man.svg" alt="User" />
+                <p>Musharof Chy</p>
+              </div>
+              <div class="tc wf ag">
+                <img src="assets/images/icon-calender.svg" alt="Calender" />
+                <p>25 Dec, 2025</p>
+              </div>
+            </div>
+            <h4 class="ek tj ml il kk wm xl eq lb">
+              <a href="blog-single.html">Tips to quickly improve your coding speed.</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Blog End ===== -->
+
+  <!-- ===== Contact Start ===== -->
+  <section id="support" class="i pg fh rm ji gp uq">
+    <!-- Bg Shapes -->
+    <img src=" assets/images/shape-06.svg" alt="Shape" class="h aa y" />
+    <img src="assets/images/shape-03.svg" alt="Shape" class="h ca u" />
+    <img src="assets/images/shape-07.svg" alt="Shape" class="h w da ee" />
+    <img src="assets/images/shape-12.svg" alt="Shape" class="h p s" />
+    <img src="assets/images/shape-13.svg" alt="Shape" class="h r q" />
+
+    <!-- Section Title Start -->
+    <div
+      x-data="{ sectionTitle: `Let’s Stay Connected`, sectionTitleText: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using.`}"
+    >
+      <div class="animate_top bb ze rj ki xn vq">
+        <h2
+          x-text="sectionTitle"
+          class="fk vj pr kk wm on/5 gq/2 bb _b"
+        >
+        </h2>
+        <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+      </div>
+
+
+    </div>
+    <!-- Section Title End -->
+
+    <div class="i va bb ye ki xn wq jb mo">
+      <div class="tc uf sn tf rn un zf xl:gap-10">
+        <div class="animate_top w-full mn/5 to/3 vk sg hh sm yh rq i pg">
+          <!-- Bg Shapes -->
+          <img src="assets/images/shape-03.svg" alt="Shape" class="h la x wd" />
+          <img src="assets/images/shape-06.svg" alt="Shape" class="h la ma ne kf" />
+
+          <div class="fb">
+            <h4 class="wj kk wm cc">Email Address</h4>
+            <p><a href="#">support@startup.com</a></p>
+          </div>
+          <div class="fb">
+            <h4 class="wj kk wm cc">Office Location</h4>
+            <p>76/A, Green valle, Califonia USA.</p>
+          </div>
+          <div class="fb">
+            <h4 class="wj kk wm cc">Phone Number</h4>
+            <p><a href="#">+009 8754 3433 223</a></p>
+          </div>
+          <div class="fb">
+            <h4 class="wj kk wm cc">Skype Email</h4>
+            <p><a href="#">example@yourmail.com</a></p>
+          </div>
+
+          <span class="rc nd rh tm lc fb"></span>
+
+          <div>
+            <h4 class="wj kk wm qb">Social Media</h4>
+            <ul class="tc wf fg">
+              <li>
+                <a href="#" class="c tc wf xf ie ld rg ml il tl">
+                  <svg class="th lm ml il" width="11" height="20" viewBox="0 0 11 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M6.83366 11.3752H9.12533L10.042 7.7085H6.83366V5.87516C6.83366 4.931 6.83366 4.04183 8.667 4.04183H10.042V0.96183C9.74316 0.922413 8.61475 0.833496 7.42308 0.833496C4.93433 0.833496 3.16699 2.35241 3.16699 5.14183V7.7085H0.416992V11.3752H3.16699V19.1668H6.83366V11.3752Z"
+                      fill=""
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="c tc wf xf ie ld rg ml il tl">
+                  <svg class="th lm ml il" width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M19.3153 2.18484C18.6155 2.4944 17.8733 2.6977 17.1134 2.78801C17.9144 2.30899 18.5138 1.55511 18.8001 0.666844C18.0484 1.11418 17.2244 1.42768 16.3654 1.59726C15.7885 0.979958 15.0238 0.57056 14.1901 0.432713C13.3565 0.294866 12.5007 0.436294 11.7558 0.835009C11.0108 1.23372 10.4185 1.86739 10.0708 2.63749C9.72313 3.40759 9.63963 4.27098 9.83327 5.09343C8.30896 5.01703 6.81775 4.62091 5.45645 3.93079C4.09516 3.24067 2.89423 2.27197 1.93161 1.08759C1.59088 1.67284 1.41182 2.33814 1.41278 3.01534C1.41278 4.34451 2.08928 5.51876 3.11778 6.20626C2.50912 6.1871 1.91386 6.02273 1.38161 5.72685V5.77451C1.38179 6.65974 1.68811 7.51766 2.24864 8.20282C2.80916 8.88797 3.58938 9.3582 4.45703 9.53376C3.89201 9.68688 3.29956 9.70945 2.72453 9.59976C2.96915 10.3617 3.44595 11.0281 4.08815 11.5056C4.73035 11.9831 5.50581 12.2478 6.30594 12.2627C5.51072 12.8872 4.60019 13.3489 3.62642 13.6213C2.65264 13.8938 1.63473 13.9716 0.630859 13.8503C2.38325 14.9773 4.4232 15.5756 6.50669 15.5737C13.5586 15.5737 17.415 9.73176 17.415 4.66535C17.415 4.50035 17.4104 4.33351 17.4031 4.17035C18.1537 3.62783 18.8016 2.95578 19.3162 2.18576L19.3153 2.18484Z"
+                      fill=""
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="c tc wf xf ie ld rg ml il tl">
+                  <svg class="th lm ml il" width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M4.36198 2.58327C4.36174 3.0695 4.16835 3.53572 3.82436 3.87937C3.48037 4.22301 3.01396 4.41593 2.52773 4.41569C2.0415 4.41545 1.57528 4.22206 1.23164 3.87807C0.887991 3.53408 0.69507 3.06767 0.695313 2.58144C0.695556 2.09521 0.888943 1.62899 1.23293 1.28535C1.57692 0.941701 2.04333 0.748781 2.52956 0.749024C3.01579 0.749267 3.48201 0.942654 3.82566 1.28664C4.1693 1.63063 4.36222 2.09704 4.36198 2.58327ZM4.41698 5.77327H0.750313V17.2499H4.41698V5.77327ZM10.2103 5.77327H6.56198V17.2499H10.1736V11.2274C10.1736 7.87244 14.5461 7.56077 14.5461 11.2274V17.2499H18.167V9.98077C18.167 4.32494 11.6953 4.53577 10.1736 7.31327L10.2103 5.77327Z"
+                      fill=""
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="c tc wf xf ie ld rg ml il tl">
+                  <svg class="th lm ml il" width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M6.82308 0.904297C7.40883 0.904297 7.95058 0.95013 8.44558 1.0858C8.89476 1.16834 9.32351 1.33772 9.70783 1.58446C10.069 1.81088 10.3394 2.12896 10.5191 2.53688C10.6997 2.9448 10.7895 3.44438 10.7895 3.98796C10.7895 4.62321 10.6547 5.1668 10.3394 5.57471C10.069 5.98355 9.61799 6.34563 9.07716 6.61788C9.84349 6.84521 10.4292 7.25313 10.7895 7.79672C11.1507 8.34122 11.3762 9.02138 11.3762 9.7923C11.3762 10.4275 11.2405 10.9711 11.015 11.4249C10.7895 11.8786 10.4292 12.2865 10.0232 12.5588C9.58205 12.8506 9.09443 13.0651 8.58124 13.1931C8.04041 13.3297 7.49958 13.4205 6.95874 13.4205H0.916992V0.904297H6.82308ZM6.46191 5.98263C6.95783 5.98263 7.36391 5.84696 7.67924 5.62055C7.99458 5.39413 8.13024 4.9853 8.13024 4.48663C8.13024 4.21438 8.08441 3.94213 7.99458 3.76155C7.90474 3.58005 7.76908 3.44346 7.58941 3.3078C7.40883 3.21705 7.22824 3.1263 7.00274 3.08138C6.77724 3.03555 6.55266 3.03555 6.28133 3.03555H3.66699V5.98355H6.46283L6.46191 5.98263ZM6.59758 11.3341C6.86799 11.3341 7.13841 11.2883 7.36391 11.2434C7.59159 11.2001 7.80692 11.1071 7.99458 10.9711C8.17826 10.8384 8.33193 10.6685 8.44558 10.4725C8.53541 10.246 8.62616 9.9738 8.62616 9.65663C8.62616 9.02138 8.44558 8.56763 8.08533 8.25046C7.72416 7.97822 7.22824 7.84255 6.64249 7.84255H3.66699V11.335H6.59758V11.3341ZM15.2986 11.2883C15.6588 11.6513 16.1997 11.8328 16.9211 11.8328C17.417 11.8328 17.868 11.6971 18.2282 11.4707C18.5894 11.1985 18.8149 10.9262 18.9047 10.654H21.1139C20.7527 11.742 20.2119 12.513 19.4914 13.0116C18.7691 13.4654 17.9129 13.7376 16.8762 13.7376C16.2128 13.7396 15.5551 13.6165 14.9374 13.3746C14.3816 13.1661 13.886 12.8235 13.4946 12.3773C13.0759 11.9598 12.7665 11.4457 12.5935 10.8804C12.368 10.291 12.2772 9.65663 12.2772 8.93063C12.2772 8.25047 12.368 7.61613 12.5935 7.0258C12.8103 6.45755 13.1311 5.93468 13.5395 5.48396C13.9456 5.07605 14.4415 4.71396 14.9823 4.48663C15.5843 4.24469 16.2274 4.12143 16.8762 4.12363C17.6425 4.12363 18.319 4.26021 18.9047 4.57738C19.4914 4.89455 19.9415 5.25755 20.3027 5.80205C20.6711 6.32503 20.9456 6.90819 21.1139 7.52538C21.2037 8.15972 21.2487 8.79497 21.2037 9.52005H14.667C14.667 10.246 14.9374 10.9262 15.2986 11.2892V11.2883ZM18.1384 6.52713C17.8231 6.20996 17.3272 6.02846 16.7405 6.02846C16.3353 6.02846 16.0191 6.11922 15.7487 6.25488C15.4782 6.39147 15.2986 6.57297 15.118 6.75447C14.952 6.92978 14.8422 7.15067 14.8027 7.3888C14.7568 7.61613 14.7119 7.79672 14.7119 7.97822H18.7691C18.6792 7.29805 18.4537 6.84522 18.1384 6.52713ZM14.1711 1.76596H19.2201V2.99063H14.172V1.76596H14.1711Z"
+                      fill=""
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="animate_top w-full nn/5 vo/3 vk sg hh sm yh tq">
+          <form action="https://formbold.com/s/unique_form_id" method="POST">
+            <div class="tc sf yo ap zf ep qb">
+              <div class="vd to/2">
+                <label class="rc ac" for="fullname">Full name</label>
+                <input
+                  type="text"
+                  name="fullname"
+                  id="fullname"
+                  placeholder="Devid Wonder"
+                  class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi"
+                />
+              </div>
+
+              <div class="vd to/2">
+                <label class="rc ac" for="email">Email address</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="example@gmail.com"
+                  class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi"
+                />
+              </div>
+            </div>
+
+            <div class="tc sf yo ap zf ep qb">
+              <div class="vd to/2">
+                <label class="rc ac" for="phone">Phone number</label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  placeholder="+009 3342 3432"
+                  class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi"
+                />
+              </div>
+
+              <div class="vd to/2">
+                <label class="rc ac" for="subject">Subject</label>
+                <input
+                  type="text"
+                  for="subject"
+                  id="subject"
+                  placeholder="Type your subject"
+                  class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi"
+                />
+              </div>
+            </div>
+
+            <div class="fb">
+              <label class="rc ac" for="message">Message</label>
+              <textarea
+                placeholder="Message"
+                rows="4"
+                name="message"
+                id="message"
+                class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 ci"
+              ></textarea>
+            </div>
+
+            <div class="tc xf">
+              <button class="vc rg lk gh ml il hi gi _l">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===== Contact End ===== -->
+
+  <!-- ===== CTA Start ===== -->
+  <section class="i pg gh ji">
+    <!-- Bg Shape -->
+    <img class="h p q" src="assets/images/shape-16.svg" alt="Bg Shape" />
+
+    <div class="bb ye i z-10 ki xn dr">
+      <div class="tc uf sn tn un gg">
+        <div class="animate_left to/2">
+          <h2 class="fk vj zp pr lk ac">
+            Join with 5000+ Startups Growing with Base.
+          </h2>
+          <p class="lk">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis nibh lorem. Duis sed odio lorem. In a efficitur leo. Ut venenatis rhoncus.
+          </p>
+        </div>
+        <div class="animate_right bf">
+          <a href="#" class="vc ek kk hh rg ol il cm gi hi">
+            Get Started Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA End ===== -->
+</main>
+<!-- ===== Footer Start ===== -->
+<app-footer></app-footer>
+
+<!-- ====== Back To Top Start ===== -->
+<button
+  class="xc wf xf ie ld vg sr gh tr g sa ta _a uc"
+  (click)="common.scrollToTop()"
+  [ngClass]="{ 'uc' : common.scrollTop }"
+>
+  <svg class="uh se qd" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z" />
   </svg>
-
-</div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
+</button>

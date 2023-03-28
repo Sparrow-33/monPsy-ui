@@ -6,8 +6,55 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="styles.css" rel="stylesheet">
 </head>
-<body>
+<body
+  x-data="{ page: 'home', 'darkMode': true, 'stickyMenu': false, 'navigationOpen': false, 'scrollTop': false }"
+  x-init="
+         darkMode = JSON.parse(localStorage.getItem('darkMode'));
+         $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(value)))"
+  :class="{'b eh': darkMode === true}"
+>
   <app-root></app-root>
+
+  <script>
+    //  Pricing Table
+    const setup = () => {
+      return {
+        isNavOpen: false,
+
+        billPlan: 'monthly',
+
+        plans: [
+          {
+            name: 'Starter',
+            price: {
+              monthly: 29,
+              annually: 29 * 12 - 199,
+            },
+            features: ['400 GB Storaget', 'Unlimited Photos & Videos', 'Exclusive Support'],
+          },
+          {
+            name: 'Growth Plan',
+            price: {
+              monthly: 59,
+              annually: 59 * 12 - 100,
+            },
+            features: ['400 GB Storaget', 'Unlimited Photos & Videos', 'Exclusive Support'],
+          },
+          {
+            name: 'Business',
+            price: {
+              monthly: 139,
+              annually: 139 * 12 - 100,
+            },
+            features: ['400 GB Storaget', 'Unlimited Photos & Videos', 'Exclusive Support'],
+          },
+        ],
+      };
+    };
+  </script>
+  <script defer src="bundle.js"></script></body>
 </body>
+
 </html>
