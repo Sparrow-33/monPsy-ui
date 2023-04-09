@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {CommonService} from "../common.service";
+import {CommonService} from "../../common.service";
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
